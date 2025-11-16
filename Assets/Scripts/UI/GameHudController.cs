@@ -21,8 +21,17 @@ namespace FreelanceOdyssey.UI
         public Text resultScoreText;
         public Text resultRewardText;
 
+        [Header("Puzzle HUD")] public Text timerText;
+        public Text scoreText;
+        public Text comboText;
+        public Text crossSkillCooldownText;
+        public Text lineSkillCooldownText;
+
         [Header("Buttons")] public Button startPuzzleButton;
         public Button backToHomeButton;
+        public Button finishButton;
+        public Button crossSkillButton;
+        public Button lineSkillButton;
 
         private Puzzle.PuzzleController _puzzleController;
         private Font _defaultFont;
@@ -156,7 +165,11 @@ namespace FreelanceOdyssey.UI
         {
             if (_puzzleController == null)
             {
+#if UNITY_2023_1_OR_NEWER
+                _puzzleController = FindFirstObjectByType<Puzzle.PuzzleController>();
+#else
                 _puzzleController = FindObjectOfType<Puzzle.PuzzleController>();
+#endif
             }
 
             if (_puzzleController == null)

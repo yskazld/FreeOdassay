@@ -42,7 +42,14 @@ namespace FreelanceOdyssey.Core
                 puzzleController.InitializeController();
             }
 
-            if (EventSystem.current == null && FindObjectOfType<EventSystem>() == null)
+            var existingEventSystem =
+#if UNITY_2023_1_OR_NEWER
+                FindFirstObjectByType<EventSystem>();
+#else
+                FindObjectOfType<EventSystem>();
+#endif
+
+            if (EventSystem.current == null && existingEventSystem == null)
             {
                 var eventSystem = new GameObject("EventSystem", typeof(EventSystem), typeof(StandaloneInputModule));
                 eventSystem.transform.SetParent(transform);
